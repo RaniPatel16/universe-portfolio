@@ -54,13 +54,13 @@ export default function ProjectModal() {
               </ul>
             </Section>
 
-            <Section title="Links">
-              <div className="flex flex-wrap gap-2">
-                <LinkPill href={project.github} label="GitHub" />
-                <LinkPill href={project.live} label="Live Demo" />
-                <LinkPill href={project.youtube} label="YouTube Demo" />
-                <LinkPill href={project.postman} label="Postman Docs" />
-                <LinkPill href={project.figma} label="Figma" />
+            <Section title="Source & Deployment Hub">
+              <div className="flex flex-col gap-3">
+                <LinkButton href={project.github} label="Access GitHub Codebase" />
+                <LinkButton href={project.live} label="Launch Live Deployment" />
+                <LinkButton href={project.youtube} label="Watch YouTube Walkthrough" />
+                <LinkButton href={project.postman} label="Open Postman API Docs" />
+                <LinkButton href={project.figma} label="View Figma Designs" />
               </div>
             </Section>
           </motion.div>
@@ -72,23 +72,24 @@ export default function ProjectModal() {
 
 function Section({ title, children }) {
   return (
-    <div className="mb-5">
-      <p className="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-2">{title}</p>
+    <div className="mb-6">
+      <p className="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-3">{title}</p>
       {children}
     </div>
   );
 }
 
-function LinkPill({ href, label }) {
+function LinkButton({ href, label }) {
   if (!href) return null;
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="px-3 py-1.5 rounded-full glass-panel text-[10px] font-mono uppercase tracking-wider text-holo hover:border-ion/60 transition-colors"
+      className="w-full py-4 px-6 rounded-xl bg-void/40 border border-ion/15 hover:border-ion/60 text-holo hover:text-ion hover:shadow-glow-ion/10 transition-all flex items-center justify-between text-xs font-mono uppercase tracking-wider cursor-pointer"
     >
-      {label}
+      <span>{label}</span>
+      <span className="text-[10px] text-ion/70 racking-widest">LAUNCH LINK ↗</span>
     </a>
   );
 }

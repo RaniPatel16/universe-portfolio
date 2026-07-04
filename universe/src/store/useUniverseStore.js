@@ -20,55 +20,19 @@ export const useUniverseStore = create((set, get) => ({
   openProject: (id) => set({ activeProjectId: id }),
   closeProject: () => set({ activeProjectId: null }),
 
-  // Mission system states
-  unlockedPlanetIds: ['launchpad'],
-  visitedPlanetIds: [],
-  missionComplete: false,
-
   travelTo: (planetId) => {
-    const { activePlanetId, isTraveling, unlockedPlanetIds } = get();
+    const { activePlanetId, isTraveling } = get();
     if (isTraveling || planetId === activePlanetId) return;
     const exists = PLANETS.find((p) => p.id === planetId);
     if (!exists) return;
-    // Block traveling if not unlocked
-    if (!unlockedPlanetIds.includes(planetId)) return;
     set({ targetPlanetId: planetId, isTraveling: true });
   },
 
-  arriveAtPlanet: () => {
-    const { targetPlanetId, unlockedPlanetIds, visitedPlanetIds } = get();
-    const newVisited = visitedPlanetIds.includes(targetPlanetId)
-      ? visitedPlanetIds
-      : [...visitedPlanetIds, targetPlanetId];
-
-    const currentIdx = PLANETS.findIndex((p) => p.id === targetPlanetId);
-    let newUnlockedIds = [...unlockedPlanetIds];
-    const nextPlanet = PLANETS[currentIdx + 1];
-    if (nextPlanet && !newUnlockedIds.includes(nextPlanet.id)) {
-      newUnlockedIds.push(nextPlanet.id);
-    }
-
-    const isLast = currentIdx === PLANETS.length - 1;
-
-    set({
-      activePlanetId: targetPlanetId,
+  arriveAtPlanet: () =>
+    set((state) => ({
+      activePlanetId: state.targetPlanetId,
       isTraveling: false,
-      unlockedPlanetIds: newUnlockedIds,
-      visitedPlanetIds: newVisited,
-      missionComplete: isLast,
-    });
-  },
-
-  resetMission: () => {
-    set({
-      activePlanetId: 'launchpad',
-      targetPlanetId: 'launchpad',
-      isTraveling: false,
-      unlockedPlanetIds: ['launchpad'],
-      visitedPlanetIds: [],
-      missionComplete: false,
-    });
-  },
+    })),
 
   soundOn: true,
   toggleSound: () => set((state) => ({ soundOn: !state.soundOn })),

@@ -9,13 +9,7 @@ import LaunchPadPlanet from './planets/LaunchPadPlanet';
 import AboutPlanet from './planets/AboutPlanet';
 import SkillsPlanet from './planets/SkillsPlanet';
 import ProjectsPlanet from './planets/ProjectsPlanet';
-import FigmaPlanet from './planets/FigmaPlanet';
-import CertificatesPlanet from './planets/CertificatesPlanet';
-import HackathonsPlanet from './planets/HackathonsPlanet';
-import AchievementsPlanet from './planets/AchievementsPlanet';
-import ResumePlanet from './planets/ResumePlanet';
-import ContactPlanet from './planets/ContactPlanet';
-import SocialPlanet from './planets/SocialPlanet';
+import PlaceholderPlanet from './planets/PlaceholderPlanet';
 import { PLANETS } from '../../lib/navigation';
 import { useUniverseStore } from '../../store/useUniverseStore';
 
@@ -24,14 +18,6 @@ const DECORATIONS = {
   about: AboutPlanet,
   skills: SkillsPlanet,
   projects: ProjectsPlanet,
-  figma: FigmaPlanet,
-  certificates: CertificatesPlanet,
-  hackathons: HackathonsPlanet,
-  achievements: AchievementsPlanet,
-  missioncontrol: LaunchPadPlanet,
-  resume: ResumePlanet,
-  contact: ContactPlanet,
-  social: SocialPlanet,
 };
 
 export default function Scene() {

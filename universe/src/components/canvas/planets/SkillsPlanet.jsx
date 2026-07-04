@@ -1,5 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
+import { useUniverseStore } from '../../../store/useUniverseStore';
 import { skills } from '../../../data/portfolioData';
 
 const allSkills = [
@@ -43,13 +45,30 @@ export default function SkillsPlanet({ position, radius }) {
     });
   });
 
+  const panelOpen = useUniverseStore((s) => s.panelOpen);
+
   return (
     <group position={position}>
       {crystals.map((c, i) => (
-        <mesh key={c.name} ref={(el) => (refs.current[i] = el)}>
-          <octahedronGeometry args={[0.45, 0]} />
-          <meshStandardMaterial color="#FFB454" emissive="#FFB454" emissiveIntensity={0.5} metalness={0.6} roughness={0.2} />
-        </mesh>
+        <group key={c.name} ref={(el) => (refs.current[i] = el)}>
+          <mesh>
+            <octahedronGeometry args={[0.3, 0]} />
+            <meshStandardMaterial
+              color="#FFB454"
+              emissive="#FFB454"
+              emissiveIntensity={0.5}
+              metalness={0.6}
+              roughness={0.2}
+            />
+          </mesh>
+          {!panelOpen && (
+            <Html center distanceFactor={28}>
+              <div className="font-mono text-[8px] px-2 py-0.5 rounded-full bg-void/80 border border-solar/35 text-solar whitespace-nowrap shadow-glow-solar/10 pointer-events-none">
+                {c.name}
+              </div>
+            </Html>
+          )}
+        </group>
       ))}
     </group>
   );

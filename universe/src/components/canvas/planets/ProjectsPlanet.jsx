@@ -29,6 +29,8 @@ export default function ProjectsPlanet({ position, radius }) {
     if (groupRef.current) groupRef.current.rotation.y += delta * 0.03;
   });
 
+  const panelOpen = useUniverseStore((s) => s.panelOpen);
+
   return (
     <group position={position}>
       <group ref={groupRef}>
@@ -55,15 +57,16 @@ export default function ProjectsPlanet({ position, radius }) {
                   roughness={0.3}
                 />
               </mesh>
-              <Html position={[0, b.height / 2 + 0.6, 0]} center distanceFactor={30}>
-                <div
-                  className={`font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded glass-panel whitespace-nowrap transition-colors ${
-                    hovered ? 'text-alert border-alert/60' : 'text-white/60'
-                  }`}
-                >
-                  {b.title}
-                </div>
-              </Html>
+              {!panelOpen && (
+                <Html position={[0, b.height / 2 + 0.6, 0]} center distanceFactor={30}>
+                  <div
+                    className={`font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded glass-panel whitespace-nowrap transition-colors ${hovered ? 'text-alert border-alert/60' : 'text-white/60'
+                      }`}
+                  >
+                    {b.title}
+                  </div>
+                </Html>
+              )}
             </group>
           );
         })}

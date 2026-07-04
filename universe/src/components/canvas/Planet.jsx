@@ -20,6 +20,8 @@ export default function Planet({ planet, isActive, onSelect }) {
     if (ringRef.current) ringRef.current.rotation.z += delta * 0.02;
   });
 
+  const panelOpen = useUniverseStore((s) => s.panelOpen);
+
   return (
     <group position={planet.position}>
       <mesh
@@ -59,7 +61,7 @@ export default function Planet({ planet, isActive, onSelect }) {
 
       <pointLight color={planet.color} intensity={hovered ? 3 : 1.4} distance={planet.radius * 8} />
 
-      {phase === 'journey' && (
+      {phase === 'journey' && !panelOpen && (
         <Html position={[0, planet.radius + 2.5, 0]} center distanceFactor={40} occlude={false}>
           <button
             onClick={(e) => {

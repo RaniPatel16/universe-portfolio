@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useUniverseStore } from '../../store/useUniverseStore';
-import { PLANETS } from '../../lib/navigation';
+import { PLANETS, getNextPlanet } from '../../lib/navigation';
 import {
   profile,
   about,
@@ -20,11 +20,14 @@ export default function PlanetPanel() {
   const panelOpen = useUniverseStore((s) => s.panelOpen);
   const activePlanetId = useUniverseStore((s) => s.activePlanetId);
   const setPanelOpen = useUniverseStore((s) => s.setPanelOpen);
+  const travelTo = useUniverseStore((s) => s.travelTo);
+  const isTraveling = useUniverseStore((s) => s.isTraveling);
   const openProject = useUniverseStore((s) => s.openProject);
 
   if (phase !== 'journey') return null;
 
   const active = PLANETS.find((p) => p.id === activePlanetId);
+  const next = getNextPlanet(activePlanetId);
 
   return (
     <AnimatePresence>
@@ -34,7 +37,7 @@ export default function PlanetPanel() {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: '100%', opacity: 0 }}
           transition={{ type: 'spring', stiffness: 220, damping: 28 }}
-          className="fixed top-0 right-0 z-40 h-full w-full sm:w-[420px] glass-panel border-l border-ion/20 flex flex-col overflow-hidden"
+          className="fixed top-0 right-0 z-40 h-full w-full sm:w-[420px] bg-void/85 backdrop-blur-md border-l border-ion/20 flex flex-col overflow-hidden"
         >
           <div className="flex items-center justify-between p-6 pb-4 border-b border-ion/15">
             <div>
@@ -42,7 +45,7 @@ export default function PlanetPanel() {
                 Log Command Console
               </h2>
             </div>
-            <button onClick={() => setPanelOpen(false)} className="text-white/50 hover:text-white text-md">
+            <button onClick={() => setPanelOpen(false)} className="text-white/50 hover:text-white text-md cursor-pointer">
               ✕
             </button>
           </div>
@@ -61,7 +64,18 @@ export default function PlanetPanel() {
                   <p className="font-mono text-[9px] uppercase tracking-widest text-ion">{active?.subtitle}</p>
                   <h3 className="font-display text-2xl font-bold text-holo holo-text-glow">{active?.label}</h3>
                 </div>
+
                 <PanelContent planetId={activePlanetId} openProject={openProject} />
+
+                {next && (
+                  <button
+                    disabled={isTraveling}
+                    onClick={() => travelTo(next.id)}
+                    className="w-full py-3 mt-4 rounded-full bg-gradient-to-r from-[#35F0D0] to-[#FFB454] text-void font-display text-xs uppercase tracking-[0.2em] font-bold shadow-glow-ion hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer text-center disabled:opacity-40 disabled:scale-100"
+                  >
+                    WARP TO {next.label.toUpperCase()}
+                  </button>
+                )}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -72,41 +86,109 @@ export default function PlanetPanel() {
 }
 
 function PanelContent({ planetId, openProject }) {
+  // Shared custom cards for Developer and Launch Pad
+  const devCards = (
+    <div className="grid grid-cols-2 gap-3 mt-1">
+      <div className="glass-panel flex flex-col gap-2 rounded-xl p-4 border border-ion/10 hover:border-ion/25 transition-colors">
+        <div className="flex items-center gap-2">
+          <span className="text-ion text-lg">💡</span>
+          <h4 className="font-display text-xs font-bold text-ion uppercase tracking-wider">Development</h4>
+        </div>
+        <p className="text-[10px] text-white/50 leading-normal">
+          High quality code with modern practices.
+        </p>
+      </div>
+      <div className="glass-panel flex flex-col gap-2 rounded-xl p-4 border border-solar/10 hover:border-solar/25 transition-colors">
+        <div className="flex items-center gap-2">
+          <span className="text-solar text-lg">🎨</span>
+          <h4 className="font-display text-xs font-bold text-solar uppercase tracking-wider">Design</h4>
+        </div>
+        <p className="text-[10px] text-white/50 leading-normal">
+          User-centric and beautiful interfaces.
+        </p>
+      </div>
+    </div>
+  );
+
+  const customBio = (
+    "I am a passionate Full Stack Developer and Computer Science student. I specialize in building responsive, high-performance web applications using modern web technologies. I love solving complex algorithms, participating in nationwide hackathons, and constructing beautiful, interactive 3D digital experiences. Currently exploring creative frontends and secure, scalable backend architectures."
+  );
+
   switch (planetId) {
     case 'launchpad':
       return (
-        <div className="flex flex-col gap-4">
-          <img
-            src={profile.photo}
-            alt={profile.name}
-            className="w-24 h-24 rounded-full object-cover border border-ion/30"
-            onError={(e) => (e.currentTarget.style.display = 'none')}
-          />
-          <h3 className="font-display text-2xl text-holo">{profile.name}</h3>
-          <p className="text-ion font-mono text-xs uppercase tracking-widest">{profile.title}</p>
-          <p className="text-white/70 text-sm">{profile.tagline}</p>
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center gap-4">
+            <div className="relative w-20 h-20 rounded-full border-2 border-ion/30 overflow-hidden shadow-glow-ion/10">
+              <img
+                src={profile.photo}
+                alt={profile.name}
+                className="w-full h-full object-cover"
+                onError={(e) => (e.currentTarget.style.display = 'none')}
+              />
+            </div>
+            <div>
+              <h3 className="font-display text-2xl font-bold text-holo leading-tight">{profile.name}</h3>
+              <p className="text-ion font-mono text-xs uppercase tracking-widest mt-1">{profile.title}</p>
+            </div>
+          </div>
+
+          <p className="text-white/85 text-sm leading-relaxed">
+            {customBio}
+          </p>
+
+          {devCards}
         </div>
       );
 
     case 'about':
       return (
         <div className="flex flex-col gap-5">
-          <p className="text-white/70 text-sm">{about.summary}</p>
-          <div>
-            <p className="label">Education</p>
-            {about.education.map((e) => (
-              <div key={e.title} className="text-sm text-white/70 mt-1">
-                <span className="text-holo">{e.title}</span> — {e.place}{' '}
-                <span className="text-white/40 font-mono text-xs">({e.year})</span>
-              </div>
-            ))}
+          <div className="flex items-center gap-4">
+            <div className="relative w-20 h-20 rounded-full border-2 border-ion/30 overflow-hidden shadow-glow-ion/10">
+              <img
+                src={profile.photo}
+                alt={profile.name}
+                className="w-full h-full object-cover"
+                onError={(e) => (e.currentTarget.style.display = 'none')}
+              />
+            </div>
+            <div>
+              <h3 className="font-display text-2xl font-bold text-holo leading-tight">{profile.name}</h3>
+              <p className="text-ion font-mono text-xs uppercase tracking-widest mt-1">{profile.title}</p>
+            </div>
           </div>
+
+          <p className="text-white/80 text-sm leading-relaxed">
+            {customBio}
+          </p>
+
+          {devCards}
+
           <div>
-            <p className="label">Career Timeline</p>
+            <p className="label text-ion font-mono text-[10px] uppercase tracking-wider mb-2">Education</p>
+            <div className="flex flex-col gap-2">
+              <div className="text-sm text-white/70">
+                <span className="text-holo">Idar Primery School</span> — Primary Education{' '}
+                <span className="text-white/40 font-mono text-xs">(2021 - 2023)</span>
+              </div>
+              <div className="text-sm text-white/70">
+                <span className="text-holo">Gyanmanjari Vidhyapith, Bhavnagar</span> — Higher Secondary{' '}
+                <span className="text-white/40 font-mono text-xs">(2023 - 2025)</span>
+              </div>
+              <div className="text-sm text-white/70">
+                <span className="text-holo">Swaminarayan University, Kalol</span> — Bachelor of Technology{' '}
+                <span className="text-white/40 font-mono text-xs">(2025 - 2029)</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p className="label text-ion font-mono text-[10px] uppercase tracking-wider mb-2">Career Timeline</p>
             <div className="mt-2 flex flex-col gap-2 border-l border-ion/30 pl-4">
               {about.timeline.map((t) => (
                 <div key={t.year} className="relative">
-                  <div className="absolute -left-[21px] top-1 w-2 h-2 rounded-full bg-ion" />
+                  <div className="absolute -left-[21px] top-1.5 w-2 h-2 rounded-full bg-ion" />
                   <p className="text-xs font-mono text-ion">{t.year}</p>
                   <p className="text-sm text-white/70">{t.label}</p>
                 </div>
@@ -128,7 +210,7 @@ function PanelContent({ planetId, openProject }) {
         <div className="flex flex-col gap-5">
           {groups.map(([label, list]) => (
             <div key={label}>
-              <p className="label">{label}</p>
+              <p className="label text-ion font-mono text-[10px] uppercase tracking-wider mb-2">{label}</p>
               <div className="flex flex-col gap-2 mt-2">
                 {list.map((s) => (
                   <div key={s.name}>
@@ -156,7 +238,7 @@ function PanelContent({ planetId, openProject }) {
             <button
               key={p.id}
               onClick={() => openProject(p.id)}
-              className="text-left glass-panel rounded-lg px-4 py-3 hover:border-ion/50 transition-colors"
+              className="text-left glass-panel rounded-lg px-4 py-3 hover:border-ion/50 transition-colors cursor-pointer"
             >
               <p className="font-mono text-[10px] uppercase tracking-widest text-alert">{p.category}</p>
               <p className="text-holo font-semibold">{p.title}</p>
