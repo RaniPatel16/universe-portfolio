@@ -179,10 +179,40 @@ export const projects = [
 
 export const figmaDesigns = [
   {
-    id: 'design-1',
-    title: 'RuralRich — Mobile App Concept',
-    preview: '',
-    prototypeUrl: '',
+    id: 'figma-ruralrich',
+    title: 'RuralRich — Login & Signup UI (Community)',
+    description: 'Custom login and signup page UI designs for the RuralRich community platform.',
+    prototypeUrl: 'https://www.figma.com/proto/jxdjf4Gy8GGIGlDkfCaAZi/Custom-Login-page-and-Signup-page-UI--Community-?node-id=0-1',
+  },
+  {
+    id: 'figma-redzo',
+    title: 'Redzo — CV Resume (Community)',
+    description: 'Clean modern layout concept for CV / Resume designs.',
+    prototypeUrl: 'https://www.figma.com/design/9XnnHINYuQi5CfOGUBeDhv/CV-Resume--Community-?node-id=0-1&p=f&t=vVlMMjJiFauaHQcA-0',
+  },
+  {
+    id: 'figma-logos-login',
+    title: 'Custom Logos & Login Page UI',
+    description: 'Assorted branding logos and access portal components.',
+    prototypeUrl: 'https://www.figma.com/design/XpHJpZNHkaxgFXvX5cDe57/Untitled?t=vVlMMjJiFauaHQcA-0',
+  },
+  {
+    id: 'figma-shopping',
+    title: 'Shopping Mall Web UI (Community)',
+    description: 'E-Commerce storefront designs and interactive layouts.',
+    prototypeUrl: 'https://www.figma.com/design/YZ22MiqcIaTf6iiotB62JW/shopping-mall--Community-?t=vVlMMjJiFauaHQcA-0',
+  },
+  {
+    id: 'figma-dashboard',
+    title: 'CRM Dashboard View (Community)',
+    description: 'Executive telemetry dashboard containing analytics matrices.',
+    prototypeUrl: 'https://www.figma.com/design/2wznSqbVXidQrBrHfdlcvv/CRM-dashboard-view--Community-?t=vVlMMjJiFauaHQcA-0',
+  },
+  {
+    id: 'figma-address',
+    title: 'MHD Address Flow dev (Community)',
+    description: 'Interactive address configuration flow for logistics.',
+    prototypeUrl: 'https://www.figma.com/design/sDZVep4lYUOC7QUuqQgmM5/MHD-address-flow--dev---Community-?t=vVlMMjJiFauaHQcA-0',
   },
 ];
 

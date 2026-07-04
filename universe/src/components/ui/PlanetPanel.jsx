@@ -254,10 +254,15 @@ function PanelContent({ planetId, openProject }) {
           items={figmaDesigns}
           emptyText="Add your Figma designs to src/data/portfolioData.js (figmaDesigns array)."
           render={(d) => (
-            <div key={d.id} className="glass-panel rounded-lg px-4 py-3">
-              <p className="text-holo font-semibold">{d.title}</p>
+            <div key={d.id} className="glass-panel rounded-lg px-4 py-3 flex flex-col gap-1.5">
+              <div>
+                <p className="text-holo font-semibold">{d.title}</p>
+                {d.description && (
+                  <p className="text-white/50 text-xs mt-0.5">{d.description}</p>
+                )}
+              </div>
               {d.prototypeUrl && (
-                <a href={d.prototypeUrl} target="_blank" rel="noreferrer" className="text-ion text-xs font-mono underline">
+                <a href={d.prototypeUrl} target="_blank" rel="noreferrer" className="text-ion text-[11px] font-mono underline self-start mt-1">
                   Open Prototype
                 </a>
               )}
