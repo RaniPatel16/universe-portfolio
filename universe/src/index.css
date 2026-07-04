@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #05060B;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #EAF6FF;
+  cursor: none;
+}
+
+canvas {
+  touch-action: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+}
+
+/* Custom holographic scrollbar for panels */
+.holo-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.holo-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.holo-scroll::-webkit-scrollbar-thumb {
+  background: rgba(53, 240, 208, 0.4);
+  border-radius: 4px;
+}
+
+.glass-panel {
+  background: linear-gradient(160deg, rgba(11, 14, 26, 0.72), rgba(5, 6, 11, 0.85));
+  border: 1px solid rgba(53, 240, 208, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.holo-text-glow {
+  text-shadow: 0 0 12px rgba(53, 240, 208, 0.6);
+}
+
+.clip-corner {
+  clip-path: polygon(0 12px, 12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+}
+
+.label {
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.bg-radial-vignette {
+  background: radial-gradient(circle, transparent 15%, rgba(5, 6, 11, 0.75) 100%);
+}

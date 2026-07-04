@@ -1,0 +1,12 @@
+{
+  "name": "Journey Through My Universe - Rani Patel",
+  "short_name": "RP Universe",
+  "description": "Interactive 3D developer portfolio of Rani Patel, Full Stack Developer.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05060B",
+  "theme_color": "#05060B",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
