@@ -8,15 +8,23 @@ export const profile = {
   title: 'Full Stack Developer',
   tagline: 'I build things that live on the internet — and occasionally in orbit.',
   photo: '/assets/rani_patel_profile.jpg',
-  resumeUrl: '/assets/resume-placeholder.pdf', // TODO: replace with real resume PDF
+  resumeUrl: '/assets/resume.html',
   social: {
-    github: 'https://github.com/your-username',
-    linkedin: 'https://linkedin.com/in/your-username',
-    leetcode: 'https://leetcode.com/your-username',
-    twitter: 'https://twitter.com/your-username',
-    youtube: 'https://youtube.com/@your-channel',
-    instagram: 'https://instagram.com/your-username',
-    email: 'mailto:you@example.com',
+    github: 'https://github.com/RaniPatel16',
+    linkedin: 'https://linkedin.com/in/rani-patel-5aa5a3397',
+    leetcode: 'https://leetcode.com/u/QGxRFjxdGR/',
+    youtube: 'https://www.youtube.com/@RaniPatel-l2o',
+    twitter: 'https://x.com/RaniPatel161206',
+    sololearn: 'https://www.sololearn.com/en/profile/34707279',
+  },
+  // Social handles for stats APIs
+  handles: {
+    github: 'RaniPatel16',
+    leetcode: 'QGxRFjxdGR',
+    youtube: 'RaniPatel-l2o',
+    linkedin: 'rani-patel-5aa5a3397',
+    twitter: 'RaniPatel161206',
+    sololearn: '34707279',
   },
 };
 
@@ -386,15 +394,139 @@ export const certificates = [
 
 export const hackathons = [
   {
-    id: 'hack-1',
-    name: 'Smart India Hackathon',
-    problemStatement: 'Bridging rural artisans with e-commerce markets.',
-    solution: 'Built RuralRich, a direct-to-buyer marketplace platform.',
-    outcome: 'Finalist',
-    demoVideo: '',
-    github: 'https://github.com/your-username/ruralrich',
-    photos: [],
+    id: 'hack-techexpo',
+    name: 'Parul University Tech Expo 2026',
+    date: 'January 2026',
+    organizer: 'Parul University (NAAC Grade A++)',
+    teamMembers: 'Rani Patel & 3 Team Members',
+    problemStatement: 'Managing personal and organizational expenses is complex and error-prone when done manually, leading to overspending, missing records, and poor financial visibility.',
+    solution: 'Built LedgerCore — an Expenses Management Software that simplifies expense tracking with intuitive dashboards, category-wise breakdowns, and exportable financial reports. Presented at Stall 97 (TE-194).',
+    techStack: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'CSS3'],
+    myRole: 'Full Stack Developer & Team Lead',
+    challenges: 'Designing a clean, user-friendly interface while handling complex financial data models and ensuring real-time synchronization across multiple devices.',
+    outcome: 'Successfully demonstrated the project at Parul University Tech Expo 2026, receiving positive feedback from judges and industry professionals.',
+    learnings: 'Gained experience in financial data modeling, team coordination under pressure, professional project presentation, and building production-quality full-stack applications.',
+    github: 'https://github.com/RaniPatel16',
+    live: '',
+    demoVideo: 'https://www.youtube.com/@RaniPatel-l2o',
+    presentation: '',
+    certificateUrl: '/assets/hackathons/cert_crop_parul.jpg',
+    color: '#FF4444',
+    position: [12, 0, 0],
+    photos: [
+      { id: 'te-p1', category: 'Stall Demo', title: 'Expenses Management Booth', description: 'Team presenting LedgerCore at Stall 97 (TE-194) with live demos on multiple laptops.', date: 'Jan 2026', url: '/assets/hackathons/badges.jpg' },
+      { id: 'te-p2', category: 'Stage Photo', title: 'Tech Expo Main Stage', description: 'Team photo in front of the Parul University Tech Expo 2026 banner — Big minds. Bold builds.', date: 'Jan 2026', url: '/assets/hackathons/su_hackathon.png' },
+      { id: 'te-p3', category: 'Judges Review', title: 'Live Demo to Judges', description: 'Demonstrating LedgerCore features and code architecture to judges and industry mentors.', date: 'Jan 2026', url: '/assets/hackathons/expenses_management.jpg' },
+      { id: 'te-p4', category: 'Certificate', title: 'Participation Certificate', description: 'Official certificate of participation from Parul University Tech Expo 2026.', date: 'Jan 2026', url: '/assets/hackathons/cert_crop_parul.jpg' },
+      { id: 'te-p5', category: 'Hackathon Coding', title: 'Coding Sprint Session', description: 'Focused coding session during the hackathon with team working on laptops at Table T-18.', date: 'Jan 2026', url: '/assets/hackathons/coding_session.jpg' },
+      { id: 'te-p6', category: 'Batch Photo', title: 'Full Participants Group', description: 'Group photo of all hackathon participants gathered together on the university steps.', date: 'Jan 2026', url: '/assets/hackathons/group_photo.jpg' }
+    ]
   },
+  {
+    id: 'hack-gemini',
+    name: 'Build With Gemini',
+    date: '2025',
+    organizer: 'Cluster Innovation Centre, University of Delhi',
+    teamMembers: 'Rani Patel',
+    problemStatement: 'Exploring the capabilities of Google Gemini AI for building innovative prototype applications with demo video presentations.',
+    solution: 'Developed a working prototype leveraging Gemini AI capabilities, submitted with a comprehensive demo video showcasing the functionality and use cases.',
+    techStack: ['Google Gemini AI', 'JavaScript', 'React.js', 'API Integration'],
+    myRole: 'Solo Developer & Presenter',
+    challenges: 'Integrating Gemini AI APIs effectively within tight deadlines and creating a compelling demo video that showcases the prototype.',
+    outcome: 'Successfully participated in the Prototype and Demo Video Submission round organized by Cluster Innovation Centre, University of Delhi.',
+    learnings: 'Gained hands-on experience with Gemini AI APIs, learned prototype development workflows, and improved video presentation skills.',
+    github: 'https://github.com/RaniPatel16',
+    live: '',
+    demoVideo: 'https://www.youtube.com/@RaniPatel-l2o',
+    presentation: '',
+    certificateUrl: '/assets/hackathons/cert_crop_gssoc.jpg',
+    color: '#4285F4',
+    position: [6, 0, 10],
+    photos: [
+      { id: 'gem-p1', category: 'Certificate', title: 'Build With Gemini Certificate', description: 'Certificate of Participation for Prototype and Demo video submission of Build With Gemini.', date: '2025', url: '/assets/hackathons/cert_crop_gssoc.jpg' },
+      { id: 'gem-p2', category: 'Hackathon Coding', title: 'Building the Prototype', description: 'Focused coding session while building the Gemini-powered prototype application.', date: '2025', url: '/assets/hackathons/coding_session.jpg' },
+      { id: 'gem-p3', category: 'Event Photo', title: 'Hackathon Venue', description: 'Group photo of all participants at the innovation hackathon venue.', date: '2025', url: '/assets/hackathons/group_photo.jpg' }
+    ]
+  },
+  {
+    id: 'hack-tata',
+    name: 'TATA Crucible Campus Quiz 2025',
+    date: '2025',
+    organizer: 'Tata Group',
+    teamMembers: 'Rani Patel',
+    problemStatement: 'Testing business, technology, and general knowledge acumen through one of India\'s most prestigious campus quiz competitions.',
+    solution: 'Participated in the TATA Crucible Campus Quiz 2025, competing against students from Swaminarayan University and other institutions across Gujarat.',
+    techStack: ['Business Knowledge', 'Technology Awareness', 'Current Affairs'],
+    myRole: 'Quiz Participant',
+    challenges: 'Competing against top students from multiple universities on diverse topics spanning technology, business, and current affairs.',
+    outcome: 'Successfully participated and represented Swaminarayan University at the TATA Crucible Campus Quiz 2025.',
+    learnings: 'Broadened knowledge of business strategy, tech industry trends, and competitive quiz techniques. Enhanced quick-thinking and problem-solving skills.',
+    github: 'https://github.com/RaniPatel16',
+    live: '',
+    demoVideo: 'https://www.youtube.com/@RaniPatel-l2o',
+    presentation: '',
+    certificateUrl: '/assets/hackathons/cert_crop_hackx.jpg',
+    color: '#00BFFF',
+    position: [-6, 0, 10],
+    photos: [
+      { id: 'tata-p1', category: 'Certificate', title: 'TATA Crucible Certificate', description: 'Certificate of Participation from TATA Crucible Campus Quiz 2025, organized by the Tata Group.', date: '2025', url: '/assets/hackathons/cert_crop_hackx.jpg' },
+      { id: 'tata-p2', category: 'Certificate', title: 'Official Credential', description: 'Verified participation credential from Swaminarayan University for TATA Crucible 2025.', date: '2025', url: '/assets/hackathons/cert_crop_general.jpg' },
+      { id: 'tata-p3', category: 'Quiz Session', title: 'Campus Quiz in Action', description: 'Participants focused during the TATA Crucible quiz round at their assigned stations.', date: '2025', url: '/assets/hackathons/coding_session.jpg' },
+      { id: 'tata-p4', category: 'Batch Photo', title: 'All Participants', description: 'Group photo of all TATA Crucible Campus Quiz participants on the university steps.', date: '2025', url: '/assets/hackathons/group_photo.jpg' }
+    ]
+  },
+  {
+    id: 'hack-ifest',
+    name: 'i.Fest\'25 Pixel Paradox — RepoReboot',
+    date: '2025',
+    organizer: 'IEEE SB DAIICT (Dhirubhai Ambani University)',
+    teamMembers: 'Rani Patel',
+    problemStatement: 'RepoReboot challenge at i.Fest\'25 Pixel Paradox — testing developer skills in code refactoring, repository management, and software engineering best practices.',
+    solution: 'Participated in the RepoReboot event, tackling repository restructuring and code optimization challenges at DA-IICT\'s flagship tech festival.',
+    techStack: ['Git', 'GitHub', 'Code Refactoring', 'Software Engineering'],
+    myRole: 'Solo Participant',
+    challenges: 'Working under time pressure on unfamiliar codebases while maintaining coding standards and best practices for repository management.',
+    outcome: 'Successfully participated in the RepoReboot event at i.Fest\'25 Pixel Paradox, organized by IEEE Student Branch DAIICT.',
+    learnings: 'Enhanced repository management skills, learned advanced git workflows, and gained exposure to competitive coding culture at one of India\'s premier tech festivals.',
+    github: 'https://github.com/RaniPatel16',
+    live: '',
+    demoVideo: 'https://www.youtube.com/@RaniPatel-l2o',
+    presentation: '',
+    certificateUrl: '/assets/hackathons/cert_crop_parul.jpg',
+    color: '#FF6347',
+    position: [-12, 0, 0],
+    photos: [
+      { id: 'ifest-p1', category: 'Certificate', title: 'i.Fest RepoReboot Certificate', description: 'Certificate of Participation for RepoReboot event at i.Fest\'25 Pixel Paradox, organized by IEEE SB DAIICT.', date: '2025', url: '/assets/hackathons/cert_crop_parul.jpg' },
+      { id: 'ifest-p2', category: 'Photo Frame', title: 'Shaping Future Innovators', description: 'Team posing at the Shaping Future Innovators Hackathon photo frame at DA-IICT campus.', date: '2025', url: '/assets/hackathons/daiict_frame.jpg' },
+      { id: 'ifest-p3', category: 'Coding Challenge', title: 'RepoReboot Sprint', description: 'Coding and refactoring session during the i.Fest Pixel Paradox hackathon challenges.', date: '2025', url: '/assets/hackathons/coding_session.jpg' },
+      { id: 'ifest-p4', category: 'All Participants', title: 'i.Fest Batch Photo', description: 'Group photo of all i.Fest participants gathered at the DA-IICT venue steps.', date: '2025', url: '/assets/hackathons/group_photo.jpg' }
+    ]
+  },
+  {
+    id: 'hack-electrosphere',
+    name: 'Unstop Electrosphere — Management Quiz',
+    date: 'November 2025',
+    organizer: 'Unstop',
+    teamMembers: 'Rani Patel',
+    problemStatement: 'Daily competitive management quiz series testing knowledge across business management, strategy, and organizational skills.',
+    solution: 'Competed in the Management: November Series daily quiz on the Unstop platform, achieving a strong ranking among national participants.',
+    techStack: ['Management Knowledge', 'Business Strategy', 'Analytical Thinking'],
+    myRole: 'Quiz Participant',
+    challenges: 'Competing against thousands of participants nationwide in timed management knowledge assessments.',
+    outcome: 'Achieved 66th rank in the Daily Quiz (November 11, 2025) of Management: November Series on Unstop.',
+    learnings: 'Sharpened management fundamentals, business strategy thinking, and time-constrained decision-making skills.',
+    github: 'https://github.com/RaniPatel16',
+    live: '',
+    demoVideo: 'https://www.youtube.com/@RaniPatel-l2o',
+    presentation: '',
+    certificateUrl: '/assets/hackathons/cert_crop_electrosphere.jpg',
+    color: '#00FA9A',
+    position: [0, 0, -12],
+    photos: [
+      { id: 'elec-p1', category: 'Certificate', title: 'Electrosphere Excellence', description: 'Certificate of Excellence — 66th rank in Daily Quiz, Management: November Series organized by Unstop.', date: 'Nov 2025', url: '/assets/hackathons/cert_crop_electrosphere.jpg' },
+      { id: 'elec-p2', category: 'Quiz Session', title: 'Online Quiz Sprint', description: 'Focused quiz session during the Electrosphere Management November Series competition.', date: 'Nov 2025', url: '/assets/hackathons/coding_session.jpg' }
+    ]
+  }
 ];
 
 export const achievements = {
@@ -404,12 +536,12 @@ export const achievements = {
   milestones: [
     { label: 'LeetCode Problems Solved', value: 80 },
     { label: 'Certifications Earned', value: 25 },
-    { label: 'Hackathons Participated', value: 3 },
+    { label: 'Hackathons Participated', value: 5 },
     { label: 'Projects Shipped', value: 8 },
   ],
 };
 
 export const missionControl = {
-  githubUsername: 'your-username',
-  leetcodeUsername: 'your-username',
+  githubUsername: 'RaniPatel16',
+  leetcodeUsername: 'QGxRFjxdGR',
 };

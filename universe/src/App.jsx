@@ -12,6 +12,9 @@ import BackgroundAudio from './components/ui/BackgroundAudio';
 import { useUniverseStore } from './store/useUniverseStore';
 import { getNextPlanet, getPrevPlanet } from './lib/navigation';
 
+import SubtitlesOverlay from './components/ui/SubtitlesOverlay';
+import MissionCompleteOverlay from './components/ui/MissionCompleteOverlay';
+
 export default function App() {
   const phase = useUniverseStore((s) => s.phase);
   const activePlanetId = useUniverseStore((s) => s.activePlanetId);
@@ -115,6 +118,8 @@ export default function App() {
       <PlanetPanel />
       <ProjectModal />
       <CertificateModal />
+      <MissionCompleteOverlay />
+      <SubtitlesOverlay />
       <CustomCursor />
       <BackgroundAudio />
     </div>

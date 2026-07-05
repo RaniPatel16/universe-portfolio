@@ -9,7 +9,9 @@ import LaunchPadPlanet from './planets/LaunchPadPlanet';
 import AboutPlanet from './planets/AboutPlanet';
 import SkillsPlanet from './planets/SkillsPlanet';
 import ProjectsPlanet from './planets/ProjectsPlanet';
+import KnowledgeCorePlanet from './planets/KnowledgeCorePlanet';
 import PlaceholderPlanet from './planets/PlaceholderPlanet';
+import HackathonArenaPlanet from './planets/HackathonArenaPlanet';
 import { PLANETS } from '../../lib/navigation';
 import { useUniverseStore } from '../../store/useUniverseStore';
 
@@ -18,6 +20,8 @@ const DECORATIONS = {
   about: AboutPlanet,
   skills: SkillsPlanet,
   projects: ProjectsPlanet,
+  certificates: KnowledgeCorePlanet,
+  hackathons: HackathonArenaPlanet,
 };
 
 export default function Scene() {

@@ -11,6 +11,9 @@ export default function HUD() {
   const setPanelOpen = useUniverseStore((s) => s.setPanelOpen);
   const soundOn = useUniverseStore((s) => s.soundOn);
   const toggleSound = useUniverseStore((s) => s.toggleSound);
+  const novaMuted = useUniverseStore((s) => s.novaMuted);
+  const setNovaMuted = useUniverseStore((s) => s.setNovaMuted);
+  const unlockedPlanets = useUniverseStore((s) => s.unlockedPlanets);
 
   if (phase !== 'journey') return null;
 
@@ -26,12 +29,22 @@ export default function HUD() {
           <p className="text-sm md:text-base holo-text-glow">{active?.label}</p>
         </div>
 
-        <button
-          onClick={toggleSound}
-          className="pointer-events-auto glass-panel clip-corner px-3 py-2 font-mono text-[10px] text-white/60 hover:text-ion transition-colors"
-        >
-          {soundOn ? 'AUDIO: ON' : 'AUDIO: OFF'}
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={toggleSound}
+            className="pointer-events-auto glass-panel clip-corner px-3 py-2 font-mono text-[10px] text-white/60 hover:text-ion transition-colors cursor-pointer"
+          >
+            {soundOn ? 'AMBIENT: ON' : 'AMBIENT: OFF'}
+          </button>
+          <button
+            onClick={() => setNovaMuted(!novaMuted)}
+            className={`pointer-events-auto glass-panel clip-corner px-3 py-2 font-mono text-[10px] transition-colors cursor-pointer ${
+              novaMuted ? 'text-white/40 hover:text-white/70' : 'text-holo shadow-glow-holo/10 hover:text-holo/80'
+            }`}
+          >
+            {novaMuted ? 'NOVA: MUTED' : 'NOVA: ACTIVE'}
+          </button>
+        </div>
       </div>
 
       {/* Bottom console: waypoint nav bar */}

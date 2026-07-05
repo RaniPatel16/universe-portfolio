@@ -41,7 +41,10 @@ export default function ProjectsPlanet({ position, radius }) {
           return (
             <group key={b.id} position={[x, b.height / 2, z]}>
               <mesh
-                onPointerOver={() => setHoveredId(b.id)}
+                onPointerOver={() => {
+                  setHoveredId(b.id);
+                  useUniverseStore.getState().triggerInteractionSpeech('hover_interactive', 'Interactive object detected.');
+                }}
                 onPointerOut={() => setHoveredId(null)}
                 onClick={(e) => {
                   e.stopPropagation();

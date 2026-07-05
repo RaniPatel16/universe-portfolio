@@ -4,54 +4,18 @@ import useTypewriter from '../../hooks/useTypewriter';
 import { profile } from '../../data/portfolioData';
 import { useUniverseStore } from '../../store/useUniverseStore';
 
-const AI_LINE = 'Welcome, Rani Patel. Welcome to journey through my universe. Prepare for launch.';
+const AI_LINE = 'Welcome, Commander. NOVA online. Universe of Rani Patel initialized.';
 
 export default function IntroOverlay() {
   const phase = useUniverseStore((s) => s.phase);
   const setPhase = useUniverseStore((s) => s.setPhase);
+  const speakNova = useUniverseStore((s) => s.speakNova);
   const { output } = useTypewriter(AI_LINE, 28, 600);
   const [logs, setLogs] = useState([]);
   const [systemTime, setSystemTime] = useState('');
 
-  // Space AI voice player helper (checks custom audio first, falls back to web speech TTS)
-  const playVoice = (text, audioPath) => {
-    const audio = new Audio(audioPath);
-    audio.play()
-      .catch(() => {
-        // Fallback to text-to-speech if custom audio is not found/supported
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          const utterance = new SpeechSynthesisUtterance(text);
-          const voices = window.speechSynthesis.getVoices();
-          // Prioritize female English voices
-          const femaleKeywords = ['zira', 'amy', 'samantha', 'siri', 'hazel', 'female', 'heera', 'susan', 'google us english', 'natural'];
-          let voice = voices.find((v) => {
-            if (!v.lang.startsWith('en')) return false;
-            const nameLower = v.name.toLowerCase();
-            return femaleKeywords.some((keyword) => nameLower.includes(keyword));
-          });
-          // Fallback to any available English voice if no specific female voice matches
-          if (!voice) {
-            voice = voices.find(
-              (v) =>
-                v.lang.startsWith('en') &&
-                (v.name.toLowerCase().includes('google') ||
-                  v.name.toLowerCase().includes('microsoft'))
-            );
-          }
-          if (voice) {
-            utterance.voice = voice;
-          }
-          utterance.rate = 0.92;
-          // Set pitch slightly higher for a cleaner female voice profile
-          utterance.pitch = 1.05;
-          window.speechSynthesis.speak(utterance);
-        }
-      });
-  };
-
   const speakAI = () => {
-    playVoice(AI_LINE, '/assets/voice-welcome.mp3');
+    speakNova(AI_LINE);
   };
 
   // Speaks on mount/intro phase if user has clicked standard browser items previously,
@@ -125,7 +89,7 @@ export default function IntroOverlay() {
   }, [phase]);
 
   const begin = () => {
-    playVoice('Launch initiated. Safe journey, Rani Patel.', '/assets/voice-launch.mp3');
+    speakNova('Warp drive engaged.');
     setPhase('journey');
   };
 

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rani Patel - Professional Resume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text-dark: #0f172a;
+            --text-light: #475569;
+            --divider: #1e293b;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+            --font-subheading: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            line-height: 1.4;
+            padding: 20px 0;
+        }
+
+        .resume-page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 12mm 15mm;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header Area */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2mm;
+        }
+
+        .header-left h1 {
+            font-family: var(--font-heading);
+            font-size: 36pt;
+            font-weight: 900;
+            letter-spacing: -0.5pt;
+            margin-bottom: 1mm;
+            text-transform: uppercase;
+            line-height: 1;
+            color: #0f172a;
+        }
+
+        .header-left .subtitle {
+            font-size: 14pt;
+            font-weight: 500;
+            color: var(--text-light);
+            letter-spacing: 0.5pt;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 9pt;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2mm;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 2.5mm;
+            font-weight: 600;
+        }
+
+        .contact-item i {
+            width: 14px;
+            color: #000;
+            text-align: center;
+        }
+
+        /* Quick Links Bar */
+        .links-bar {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            border: 1.5px solid #000;
+            margin: 4mm 0 6mm;
+            background: #fff;
+        }
+
+        .links-bar a {
+            padding: 1.8mm 0;
+            text-decoration: none;
+            color: #000;
+            font-size: 8.5pt;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2mm;
+            border-right: 1.5px solid #000;
+            transition: background 0.2s;
+        }
+
+        .links-bar a:last-child {
+            border-right: none;
+        }
+
+        .links-bar a:hover {
+            background: #f8fafc;
+        }
+
+        /* Layout Grid */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 0.42fr 0.58fr;
+            gap: 10mm;
+            flex-grow: 1;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 6mm;
+        }
+
+        section h2 {
+            font-family: var(--font-heading);
+            font-size: 11pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2.5pt;
+            border-bottom: 2px solid var(--divider);
+            margin-bottom: 3.5mm;
+            padding-bottom: 1mm;
+            color: #0f172a;
+        }
+
+        section h3 {
+            font-family: var(--font-subheading);
+            font-size: 10.5pt;
+            font-weight: 700;
+            margin-bottom: 0.8mm;
+            color: #0f172a;
+            letter-spacing: -0.2pt;
+        }
+
+        .sub-header {
+            font-family: var(--font-subheading);
+            font-size: 9pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8pt;
+            margin-bottom: 2mm;
+            color: #334155;
+        }
+
+        /* Content Items */
+        .content-item {
+            margin-bottom: 4mm;
+        }
+
+        .date-location {
+            font-size: 8.5pt;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 1.2mm;
+            font-style: italic;
+        }
+
+        .tags-line {
+            font-size: 8pt;
+            margin: 1.5mm 0;
+            color: #3f3f46;
+            line-height: 1.4;
+        }
+
+        .tags-line b {
+            color: #000;
+            font-weight: 700;
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 4mm;
+            list-style-type: disc;
+        }
+
+        li {
+            font-size: 8.5pt;
+            margin-bottom: 0.8mm;
+            line-height: 1.4;
+            color: #18181b;
+        }
+
+        /* Skills */
+        .skill-group {
+            margin-bottom: 2.5mm;
+        }
+
+        .skill-group b {
+            display: block;
+            font-size: 8.5pt;
+            font-weight: 700;
+            margin-bottom: 0.5mm;
+        }
+
+        .skill-group p {
+            font-size: 8.5pt;
+            color: #27272a;
+        }
+
+        /* Certificates Grid */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2mm 4mm;
+        }
+
+        .cert-item {
+            font-size: 8pt;
+            font-weight: 500;
+            display: flex;
+            align-items: flex-start;
+            gap: 2mm;
+            text-decoration: none;
+            color: #000;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .cert-item:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .cert-item i {
+            margin-top: 1mm;
+            font-size: 7pt;
+            color: #000;
+            transition: color 0.2s;
+        }
+        .cert-item:hover i {
+            color: #2563eb;
+        }
+
+        /* Education */
+        .edu-item {
+            margin-bottom: 3.5mm;
+        }
+
+        .edu-title {
+            font-size: 9.5pt;
+            font-weight: 700;
+        }
+
+        .edu-subtitle {
+            font-size: 8.5pt;
+            font-weight: 500;
+            color: #18181b;
+        }
+
+        /* Links area */
+        .links-row {
+            font-size: 8pt;
+            margin-top: 1.5mm;
+            font-weight: 700;
+        }
+
+        .links-row a {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        /* Table-like Project list for bottom */
+        .mini-projects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5mm 4mm;
+            margin-top: 2mm;
+        }
+
+        .mini-project-item {
+            font-size: 8.5pt;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 2mm;
+            text-decoration: none;
+            color: #0f172a;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .mini-project-item:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .mini-project-item::before {
+            content: "•";
+            font-size: 14pt;
+            line-height: 0;
+            color: #0f172a;
+            transition: color 0.2s;
+        }
+        
+        .mini-project-item:hover::before {
+            color: #2563eb;
+        }
+
+        @media print {
+            body { padding: 0; background: #fff; }
+            .resume-page { box-shadow: none; margin: 0; width: 100%; height: 297mm; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="resume-page">
+        <!-- Header Section -->
+        <header>
+            <div class="header-left">
+                <h1>Rani Patel</h1>
+                <div class="subtitle">Full-Stack Developer</div>
+            </div>
+            <div class="header-right">
+                <div class="contact-item">9898225910 <i class="fas fa-phone"></i></div>
+                <div class="contact-item">ranip161206@gmail.com <i class="fas fa-envelope"></i></div>
+                <div class="contact-item">Idar, Gujarat <i class="fas fa-map-marker-alt"></i></div>
+            </div>
+        </header>
+
+        <!-- Social Navigation -->
+        <div class="links-bar">
+            <a href="https://github.com/RaniPatel16"><i class="fab fa-github"></i> Github</a>
+            <a href="https://www.linkedin.com/in/rani-patel-5aa5a3397"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://leetcode.com/u/QGxRFjxdGR/"><i class="fas fa-code"></i> LeetCode</a>
+            <a href="#"><i class="fas fa-graduation-cap"></i> SoloLearn</a>
+            <a href="https://www.youtube.com/@RaniPatel-l2o"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="https://x.com/RaniPatel161206"><i class="fab fa-twitter"></i> Twitter</a>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="layout-grid">
+            <!-- Left Column -->
+            <div class="left-col">
+                <section>
+                    <h2>Skills</h2>
+                    <div class="skill-group">
+                        <b>Languages & Frameworks:</b>
+                        <p>JavaScript (ES6+), C++, React.js, HTML, CSS, Tailwind CSS</p>
+                    </div>
+                    <div class="skill-group">
+                        <b>Databases & Backend:</b>
+                        <p>MongoDB, REST APIs, Node.js</p>
+                    </div>
+                    <div class="skill-group">
+                        <b>Tools & Platforms:</b>
+                        <p>Git, GitHub, Postman, npm, Vercel, Netlify, Render, Figma</p>
+                    </div>
+                    <div class="skill-group">
+                        <b>UI/UX Design:</b>
+                        <p>Figma, Wireframing, Prototyping</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Certificates</h2>
+                    <div class="sub-header">Hackathons & Events</div>
+                    <div class="cert-grid">
+                        <a href="https://res.cloudinary.com/dpktusyjs/image/upload/q_auto/f_auto/v1775798803/Screenshot_2026-04-09_210511_gvo8bh.png" target="_blank" class="cert-item" title="Click to view: RepoReboot"><i class="fas fa-medal"></i> RepoReboot</a>
+                        <a href="https://res.cloudinary.com/dpktusyjs/image/upload/q_auto/f_auto/v1775798250/Screenshot_2026-04-09_210604_twvorn.png" target="_blank" class="cert-item" title="Click to view: FinAgent Hackathon"><i class="fas fa-medal"></i> FinAgent Hackathon</a>
+                        <a href="https://res.cloudinary.com/dpktusyjs/image/upload/q_auto/f_auto/v1775798225/Screenshot_2026-04-09_210551_zrcmrk.png" target="_blank" class="cert-item" title="Click to view: Rethink Hackathon"><i class="fas fa-medal"></i> Rethink Hackathon</a>
+                        <a href="https://res.cloudinary.com/dpktusyjs/image/upload/q_auto/f_auto/v1775798156/Screenshot_2026-04-09_223247_ypywny.png" target="_blank" class="cert-item" title="Click to view: CodeMatrix Genesis"><i class="fas fa-medal"></i> CodeMatrix Genesis</a>
+                        <a href="https://res.cloudinary.com/dpktusyjs/image/upload/q_auto/f_auto/v1775798129/Screenshot_2026-04-09_223321_q9eue2.png" target="_blank" class="cert-item" title="Click to view: Code Matrix Rd 1"><i class="fas fa-medal"></i> Code Matrix Rd 1</a>
+                        <a href="https://res.cloudinary.com/dpktusyjs/image/upload/q_auto/f_auto/v1775798103/Screenshot_2026-04-09_223346_qtjjum.png" target="_blank" class="cert-item" title="Click to view: Hack.X'26 Final"><i class="fas fa-medal"></i> Hack.X'26 Final</a>
+                        <a href="https://res.cloudinary.com/dpktusyjs/image/upload/q_auto/f_auto/v1775798024/Screenshot_2026-04-09_223412_m0cxfw.png" target="_blank" class="cert-item" title="Click to view: Hack For Us"><i class="fas fa-medal"></i> Hack For Us</a>
+                    </div>
+                </section>
+
+
+                <section>
+                    <h2>Education</h2>
+                    <div class="edu-item">
+                        <div class="edu-title">Swaminarayan University, Kalol</div>
+                        <div class="edu-subtitle">Bachelor of Technology</div>
+                        <div class="date-location">2025 – 2029</div>
+                    </div>
+                    <div class="edu-item">
+                        <div class="edu-title">Gyanmanjari Vidhyapith, Bhavnagar</div>
+                        <div class="edu-subtitle">Higher Secondary Education</div>
+                        <div class="date-location">2023 – 2025</div>
+                    </div>
+                    <div class="edu-item">
+                        <div class="edu-title">Jawahar Navodaya vidhalaya, Vadnagar</div>
+                        <div class="edu-subtitle">School Secondary Education</div>
+                        <div class="date-location">2021 – 2023</div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Linguistic Profile</h2>
+                    <ul style="font-size: 9pt; font-weight: 500; padding-left: 4mm; color: #0f172a;">
+                        <li style="margin-bottom: 1.5mm;"><b>English:</b> Full Professional Working Proficiency</li>
+                        <li style="margin-bottom: 1.5mm;"><b>Gujarati:</b> Native / Bilingual Fluency</li>
+                        <li style="margin-bottom: 1.5mm;"><b>Hindi:</b> Advanced Professional Proficiency</li>
+                    </ul>
+                </section>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-col">
+                <section>
+                    <h2>Projects</h2>
+                    <div class="content-item">
+                        <h3>Rupiya App (FinTech OCR)</h3>
+                        <p>Advanced OCR financial workflow automation for seamless expense tracking.</p>
+                        <div class="tags-line"><b>Technologies:</b> React, Node.js, Express, MongoDB, Tesseract.js.</div>
+                        <div class="links-row">
+                            <a href="https://github.com/RaniPatel16/rupiya-app" target="_blank">Github</a> | <a href="#">Demo</a> | <a href="#">Live</a>
+                        </div>
+                    </div>
+
+                    <div class="content-item">
+                        <h3>Smart Expense Management System</h3>
+                        <p>Enterprise-grade web application for automating reimbursement workflows with conditional approvals.</p>
+                        <div class="tags-line"><b>Technologies:</b> Tailwind CSS, Node.js, MongoDB, JWT, RBAC.</div>
+                        <div class="links-row">
+                            <a href="https://github.com/RaniPatel16/expance-managment" target="_blank">Github</a> | <a href="#">Demo</a> | <a href="#">Live</a>
+                        </div>
+                    </div>
+
+                    <div class="content-item">
+                        <h3>LearnSmart AI – EdTech Platform</h3>
+                        <p>AI-driven personalized learning system that tracks student performance in real-time.</p>
+                        <div class="tags-line"><b>Technologies:</b> React, Node.js, MongoDB, Emotion-Sensing APIs.</div>
+                        <div class="links-row">
+                            <a href="https://github.com/RaniPatel16/ed-learning" target="_blank">Github</a> | <a href="#">Demo</a> | <a href="#">Live</a>
+                        </div>
+                    </div>
+
+                    <div class="content-item">
+                        <h3>GitHub Analyzer</h3>
+                        <p>Insightful analytics for developer profiles and repository metrics.</p>
+                        <div class="tags-line"><b>Technologies:</b> React, GitHub API, Data Visualization.</div>
+                        <div class="links-row">
+                            <a href="https://github.com/RaniPatel16/git-anhalyzer" target="_blank">Github</a> | <a href="#">Demo</a> | <a href="#">Live</a>
+                        </div>
+                    </div>
+
+                    <div class="content-item" style="border-left: 3px solid #000; padding-left: 4mm; margin-left: -4mm;">
+                        <h3 style="font-size: 10.5pt;">Hackathon Finalist – REPO REBOOT'25</h3>
+                        <div class="date-location">DA-IICT, Gandhinagar | Nov 2025</div>
+                        <ul>
+                            <li>Selected as a Finalist while leading a team of 4.</li>
+                            <li>Implemented core blockchain-lite verification modules.</li>
+                            <li><a href="https://github.com/RaniPatel16/royal_rebooters" target="_blank" style="color: #2563eb; font-weight: bold;">View Project Repository <i class="fab fa-github"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-top: 8mm;">
+                        <div class="sub-header" style="border-bottom: 1.5px solid #e2e8f0; padding-bottom: 2mm;">Frontend & UI/UX Projects</div>
+                        <div class="mini-projects">
+                            <a href="https://www.figma.com/design/T6T5sAmdN3QrGw1h4UVKax/codingGita-WEB-1?node-id=0-1&p=f&t=CghcksbuRQ6zPnkx-0" target="_blank" class="mini-project-item" title="View CodingGita Figma Design">CodingGita</a>
+                            <a href="https://www.figma.com/design/9XnnHINYuQi5CfOGUBeDhv/CV-Resume--Community-?t=CghcksbuRQ6zPnkx-0" target="_blank" class="mini-project-item" title="View CV Resume Figma Design">CV Resume</a>
+                            <a href="https://www.figma.com/design/0b0o8GU0Gswvyxzpwwot8K/BingeBox--Community-?t=CghcksbuRQ6zPnkx-0" target="_blank" class="mini-project-item" title="View BingeBox Figma Design">BingeBox Clone</a>
+                            <a href="https://www.figma.com/design/ah9c1gERyddiwEqqM7z9CQ/RedBus-WEB-2?t=CghcksbuRQ6zPnkx-0" target="_blank" class="mini-project-item" title="View RedBus Figma Design">RedBus Clone</a>
+                            <a href="https://www.figma.com/design/YZ22MiqcIaTf6iiotB62JW/shopping-mall--Community-?t=d8zsHc5QiKqWhgyz-0" target="_blank" class="mini-project-item" title="View Shopping Mall Figma Design">Shopping Mall</a>
+                            <a href="https://www.figma.com/proto/iJGwruJnB5ExH5WxpXKSa8/MY-MUSIC-WEBSITE--OLDIFY-?node-id=4-81&starting-point-node-id=1%3A2" target="_blank" class="mini-project-item" title="View Music Login Page">Music Login Page</a>
+                            <a href="https://www.figma.com/design/XpHJpZNHkaxgFXvX5cDe57/Untitled?node-id=0-1&p=f&t=d8zsHc5QiKqWhgyz-0" target="_blank" class="mini-project-item" title="View Hotel Booking Clone">Hotel Booking Clone</a>
+                            <a href="#" target="_blank" class="mini-project-item" title="No link provided">Netflix Clone</a>
+                            <a href="#" target="_blank" class="mini-project-item" title="No link provided">Hospital Clone</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

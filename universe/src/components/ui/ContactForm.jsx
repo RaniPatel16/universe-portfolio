@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { useUniverseStore } from '../../store/useUniverseStore';
 
 // TODO: replace with your real EmailJS service/template/public keys.
 // Sign up at https://www.emailjs.com/ — the free tier is enough for a portfolio.
@@ -24,6 +25,7 @@ export default function ContactForm() {
         await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, EMAILJS_PUBLIC_KEY);
       }
       setStatus('sent');
+      useUniverseStore.getState().triggerInteractionSpeech('submit_contact', 'Message transmitted.');
       setForm({ name: '', email: '', subject: '', message: '' });
     } catch (err) {
       console.error(err);

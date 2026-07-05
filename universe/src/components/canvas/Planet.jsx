@@ -26,8 +26,11 @@ export default function Planet({ planet, isActive, onSelect }) {
     <group position={planet.position}>
       <mesh
         ref={meshRef}
-        visible={planet.id !== 'launchpad'}
-        onPointerOver={() => setHovered(true)}
+        visible={planet.id !== 'launchpad' && planet.id !== 'certificates'}
+        onPointerOver={() => {
+          setHovered(true);
+          useUniverseStore.getState().triggerInteractionSpeech('hover_interactive', 'Interactive object detected.');
+        }}
         onPointerOut={() => setHovered(false)}
         onClick={(e) => {
           e.stopPropagation();
@@ -45,7 +48,7 @@ export default function Planet({ planet, isActive, onSelect }) {
       </mesh>
 
       {/* Atmosphere glow shell */}
-      {planet.id !== 'launchpad' && (
+      {planet.id !== 'launchpad' && planet.id !== 'certificates' && (
         <mesh scale={1.18}>
           <sphereGeometry args={[planet.radius, 32, 32]} />
           <meshBasicMaterial color={planet.color} transparent opacity={hovered ? 0.18 : 0.1} side={THREE.BackSide} />
