@@ -6,6 +6,7 @@ import IntroOverlay from './components/ui/IntroOverlay';
 import HUD from './components/ui/HUD';
 import PlanetPanel from './components/ui/PlanetPanel';
 import ProjectModal from './components/ui/ProjectModal';
+import CertificateModal from './components/ui/CertificateModal';
 import CustomCursor from './components/ui/CustomCursor';
 import BackgroundAudio from './components/ui/BackgroundAudio';
 import { useUniverseStore } from './store/useUniverseStore';
@@ -113,6 +114,7 @@ export default function App() {
       <HUD />
       <PlanetPanel />
       <ProjectModal />
+      <CertificateModal />
       <CustomCursor />
       <BackgroundAudio />
     </div>

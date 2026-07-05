@@ -20,19 +20,67 @@ export const useUniverseStore = create((set, get) => ({
   openProject: (id) => set({ activeProjectId: id }),
   closeProject: () => set({ activeProjectId: null }),
 
+  // active certificate url for the full preview image modal
+  activeCertificateModalUrl: null,
+  openCertificateModal: (url) => set({ activeCertificateModalUrl: url }),
+  closeCertificateModal: () => set({ activeCertificateModalUrl: null }),
+
+  // Certificates / Knowledge Core State
+  certificatesScanning: false,
+  certificatesScanned: false,
+  certificatesExplored: [], // Array of visited certificate IDs
+  focusedCertificateId: null,
+  focusedCertificatePosition: null, // [x, y, z] or null
+
+  setFocusedCertificate: (id, pos) => set({
+    focusedCertificateId: id,
+    focusedCertificatePosition: pos
+  }),
+
+  exploreCertificate: (id) => set((state) => {
+    if (state.certificatesExplored.includes(id)) return {};
+    return {
+      certificatesExplored: [...state.certificatesExplored, id]
+    };
+  }),
+
+  startCertificatesScan: () => set({
+    certificatesScanning: true,
+    certificatesScanned: false
+  }),
+
+  finishCertificatesScan: () => set({
+    certificatesScanning: false,
+    certificatesScanned: true
+  }),
+
   travelTo: (planetId) => {
     const { activePlanetId, isTraveling } = get();
     if (isTraveling || planetId === activePlanetId) return;
     const exists = PLANETS.find((p) => p.id === planetId);
     if (!exists) return;
-    set({ targetPlanetId: planetId, isTraveling: true });
+
+    // Reset individual page focus targets when leaving
+    set({
+      targetPlanetId: planetId,
+      isTraveling: true,
+      focusedCertificateId: null,
+      focusedCertificatePosition: null
+    });
   },
 
-  arriveAtPlanet: () =>
+  arriveAtPlanet: () => {
+    const target = get().targetPlanetId;
     set((state) => ({
-      activePlanetId: state.targetPlanetId,
+      activePlanetId: target,
       isTraveling: false,
-    })),
+    }));
+
+    // Automatically trigger scanning if we arrive at certificates for the first time
+    if (target === 'certificates' && !get().certificatesScanned && !get().certificatesScanning) {
+      get().startCertificatesScan();
+    }
+  },
 
   soundOn: true,
   toggleSound: () => set((state) => ({ soundOn: !state.soundOn })),

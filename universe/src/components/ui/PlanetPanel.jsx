@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useUniverseStore } from '../../store/useUniverseStore';
 import { PLANETS, getNextPlanet } from '../../lib/navigation';
@@ -23,6 +23,39 @@ export default function PlanetPanel() {
   const travelTo = useUniverseStore((s) => s.travelTo);
   const isTraveling = useUniverseStore((s) => s.isTraveling);
   const openProject = useUniverseStore((s) => s.openProject);
+
+  // Knowledge Core local / store states
+  const certificatesScanning = useUniverseStore((s) => s.certificatesScanning);
+  const certificatesScanned = useUniverseStore((s) => s.certificatesScanned);
+  const certificatesExplored = useUniverseStore((s) => s.certificatesExplored);
+  const focusedCertificateId = useUniverseStore((s) => s.focusedCertificateId);
+  const setFocusedCertificate = useUniverseStore((s) => s.setFocusedCertificate);
+  const finishCertificatesScan = useUniverseStore((s) => s.finishCertificatesScan);
+  const openCertificateModal = useUniverseStore((s) => s.openCertificateModal);
+  const [scanStep, setScanStep] = useState(0);
+
+  // Sequential scanning trigger effect
+  useEffect(() => {
+    if (activePlanetId !== 'certificates' || !certificatesScanning) {
+      setScanStep(0);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setScanStep((prev) => {
+        const nextStep = prev + 1;
+        if (nextStep < 4) {
+          return nextStep;
+        } else {
+          clearInterval(interval);
+          finishCertificatesScan();
+          return prev;
+        }
+      });
+    }, 950);
+
+    return () => clearInterval(interval);
+  }, [activePlanetId, certificatesScanning, finishCertificatesScan]);
 
   if (phase !== 'journey') return null;
 
@@ -65,7 +98,7 @@ export default function PlanetPanel() {
                   <h3 className="font-display text-2xl font-bold text-holo holo-text-glow">{active?.label}</h3>
                 </div>
 
-                <PanelContent planetId={activePlanetId} openProject={openProject} />
+                <PanelContent planetId={activePlanetId} openProject={openProject} scanStep={scanStep} />
 
                 {next && (
                   <button
@@ -85,7 +118,12 @@ export default function PlanetPanel() {
   );
 }
 
-function PanelContent({ planetId, openProject }) {
+function PanelContent({ planetId, openProject, scanStep }) {
+  const certificatesScanning = useUniverseStore((s) => s.certificatesScanning);
+  const certificatesExplored = useUniverseStore((s) => s.certificatesExplored);
+  const focusedCertificateId = useUniverseStore((s) => s.focusedCertificateId);
+  const setFocusedCertificate = useUniverseStore((s) => s.setFocusedCertificate);
+  const openCertificateModal = useUniverseStore((s) => s.openCertificateModal);
   // Shared custom cards for Developer and Launch Pad
   const devCards = (
     <div className="grid grid-cols-2 gap-3 mt-1">
@@ -271,25 +309,189 @@ function PanelContent({ planetId, openProject }) {
         />
       );
 
-    case 'certificates':
-      return (
-        <EmptyOrList
-          items={certificates}
-          render={(c) => (
-            <div key={c.id} className="glass-panel rounded-lg px-4 py-3">
-              <p className="text-holo font-semibold">{c.title}</p>
-              <p className="text-white/50 text-xs">
-                {c.organization} · {c.issueDate}
-              </p>
-              {c.credentialUrl && (
-                <a href={c.credentialUrl} target="_blank" rel="noreferrer" className="text-ion text-xs font-mono underline">
-                  View Credential
-                </a>
-              )}
+    case 'certificates': {
+      // 1. Scanning State view
+      if (certificatesScanning) {
+        return (
+          <div className="flex flex-col gap-6 py-4">
+            <div className="flex justify-between items-center px-4 py-2.5 bg-ion/10 border border-ion/30 rounded-lg animate-pulse">
+              <span className="font-mono text-xs text-ion uppercase tracking-widest font-bold">SYSTEM SCAN IN PROGRESS</span>
+              <span className="font-mono text-xs text-ion">{Math.min(100, Math.floor(((scanStep + 1) / 4) * 100))}%</span>
             </div>
-          )}
-        />
+
+            <div className="flex flex-col gap-3.5 font-mono text-[11px] leading-relaxed">
+              {['Scanning Planet...', 'Knowledge Core Detected...', 'Loading Learning Database...', 'Knowledge Crystals Found...'].map((line, idx) => (
+                <div
+                  key={idx}
+                  className={`transition-all duration-300 flex items-center gap-2.5 ${scanStep >= idx ? 'text-holo opacity-100' : 'text-white/20 opacity-30'
+                    }`}
+                >
+                  {scanStep >= idx ? (
+                    <span className="text-ion font-bold">▶</span>
+                  ) : (
+                    <span className="text-white/20">&nbsp;&nbsp;</span>
+                  )}
+                  {line}
+                </div>
+              ))}
+            </div>
+
+            <div className="h-10 w-full relative overflow-hidden bg-void/50 border border-white/5 rounded-lg flex items-center justify-center p-3">
+              <div className="w-full h-1 bg-white/10 rounded overflow-hidden">
+                <div
+                  className="h-full bg-ion transition-all duration-700 rounded"
+                  style={{ width: `${(scanStep + 1) * 25}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // 2. Focused Crystal Details view
+      if (focusedCertificateId) {
+        const c = certificates.find((cert) => cert.id === focusedCertificateId);
+        if (!c) return null;
+        return (
+          <div className="flex flex-col gap-4 py-2 h-full">
+            <button
+              onClick={() => setFocusedCertificate(null, null)}
+              className="text-left font-mono text-[10px] tracking-widest text-ion uppercase hover:text-holo flex items-center gap-1.5 cursor-pointer pb-2 border-b border-white/10 transition-colors"
+            >
+              ◀ RETRACE OVERVIEW
+            </button>
+
+            <div className="flex flex-col gap-4 overflow-y-auto max-h-[72vh] pr-1 styled-scrollbar">
+              <div className="flex justify-between items-center">
+                <span className="font-mono text-[9px] uppercase tracking-wider text-solar px-2 py-0.5 border border-solar/20 bg-solar/5 rounded">
+                  DECRYPTED KNOWLEDGE SOURCE
+                </span>
+                <span className="font-mono text-[9px] text-white/40">{c.issueDate}</span>
+              </div>
+
+              {/* Certificate Visual Container */}
+              <div className="relative w-full h-[280px] rounded-lg overflow-hidden border border-ion/40 bg-void/85 shadow-glow-ion/10 mt-1 flex items-center justify-center">
+                {c.credentialUrl && (c.credentialUrl.endsWith('.jpg') || c.credentialUrl.endsWith('.png') || c.credentialUrl.endsWith('.jpeg')) ? (
+                  <img
+                    src={c.credentialUrl}
+                    onClick={() => openCertificateModal(c.credentialUrl)}
+                    className="w-full h-full object-contain bg-void/30 cursor-zoom-in hover:brightness-110 transition-all"
+                    alt={c.title}
+                    title="Click for full-screen preview"
+                  />
+                ) : (
+                  <iframe
+                    src={`${c.credentialUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+                    className="w-full h-full border-0"
+                    title={c.title}
+                  />
+                )}
+              </div>
+
+              <div className="flex flex-col gap-1 mt-1">
+                <h3 className="text-lg font-bold text-holo leading-tight text-glow-holo">{c.title}</h3>
+                <p className="text-white/80 text-sm font-semibold">{c.organization}</p>
+              </div>
+
+              {c.description && (
+                <div className="flex flex-col gap-1.5">
+                  <h4 className="font-mono text-[9px] text-white/40 uppercase tracking-widest">DATA ARCHIVE SUMMARY</h4>
+                  <p className="text-white/70 text-xs leading-relaxed border-l-2 border-ion/50 pl-3 py-1 bg-white/5 rounded-r font-sans text-justify">
+                    {c.description}
+                  </p>
+                </div>
+              )}
+
+              {c.skillsLearned && c.skillsLearned.length > 0 && (
+                <div className="flex flex-col gap-1.5">
+                  <h4 className="font-mono text-[9px] text-white/40 uppercase tracking-widest animate-pulse">ACQUIRED TECHNOLOGY INTEL</h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {c.skillsLearned.map((skill, si) => (
+                      <span
+                        key={si}
+                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-ion/10 border border-ion/20 text-holo shadow-glow-ion/5"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {c.credentialId && (
+                <div className="flex flex-row justify-between items-center border-t border-white/5 pt-2 mt-1">
+                  <span className="font-mono text-[9px] text-white/40 uppercase tracking-widest">Credential ID:</span>
+                  <span className="font-mono text-xs text-solar">{c.credentialId}</span>
+                </div>
+              )}
+
+              <div className="flex justify-between items-center gap-2 mt-2">
+                <button
+                  onClick={() => openCertificateModal(c.credentialUrl)}
+                  className="w-full py-2.5 text-center text-xs font-mono uppercase tracking-widest transition-all border border-ion/30 hover:border-ion hover:bg-ion/10 text-holo rounded-lg bg-void/50 cursor-pointer"
+                >
+                  FULL PREVIEW ↗
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // 3. Main Dashboard Overview (decryption statuses)
+      const exploredCount = certificatesExplored.length;
+      const allExplored = exploredCount >= certificates.length && certificates.length > 0;
+
+      return (
+        <div className="flex flex-col gap-4">
+          <div className="glass-panel p-4 rounded-lg border-dashed border-white/10 flex flex-col gap-1.5 text-center">
+            {allExplored ? (
+              <>
+                <p className="text-solar text-xs font-mono font-bold tracking-widest animate-pulse">ARCHIVE SYSTEM COMPLETE</p>
+                <p className="text-white/50 text-[10px] uppercase leading-relaxed mt-1">
+                  Every certificate represents another milestone in Rani Patel's developer journey.
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text-holo text-xs font-mono tracking-widest uppercase">ENCRYPTED CRYSTAL MATRIX ACTIVE</p>
+                <p className="text-white/50 text-[10px] uppercase leading-relaxed mt-1">
+                  Select a crystal in orbit to decrypt and retrieve database credentials. ({exploredCount} / {certificates.length} DECRYPTED)
+                </p>
+              </>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-2.5">
+            {certificates.map((c) => {
+              const visited = certificatesExplored.includes(c.id);
+              const isActive = focusedCertificateId === c.id;
+              return (
+                <button
+                  key={c.id}
+                  onClick={() => setFocusedCertificate(c.id, null)}
+                  className={`text-left glass-panel rounded-lg px-4 py-3 hover:border-ion/50 transition-colors flex items-center justify-between cursor-pointer ${isActive ? 'border-ion/70 bg-ion/5 shadow-glow-ion/10' : ''
+                    }`}
+                >
+                  <div>
+                    <p className="text-holo font-semibold text-xs">{c.title}</p>
+                    <p className="text-white/40 text-[10px] mt-0.5">{c.organization}</p>
+                  </div>
+                  <span
+                    className={`font-mono text-[9px] px-2 py-0.5 rounded border transition-all ${visited
+                      ? 'border-solar/35 text-solar bg-solar/5'
+                      : 'border-white/10 text-white/30 bg-white/5'
+                      }`}
+                  >
+                    {visited ? 'DECRYPTED' : 'ENCRYPTED'}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       );
+    }
 
     case 'hackathons':
       return (
